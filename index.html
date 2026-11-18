@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="En enkel personlig fleksitidslogg med lokal lagring og Google Sheet-synkronisering v3.">
+  <meta name="description" content="En enkel personlig fleksitidslogg med automatisk toveis Google Sheet-synkronisering v4.">
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="./icon-192.png">
   <title>Min fleksitid</title>
 <style>
-:root{color-scheme:light dark;--bg:#f4f7fb;--card:#fff;--text:#162033;--muted:#64748b;--border:#dbe3ee;--blue:#2563eb;--green:#15803d;--red:#dc2626;--shadow:0 8px 24px rgba(15,23,42,.08)}
+:root{color-scheme:light dark;--bg:#f4f7fb;--card:#fff;--text:#162033;--muted:#64748b;--border:#dbe3ee;--blue:#2563eb;--green:#15803d;--red:#dc2626;--amber:#d97706;--shadow:0 8px 24px rgba(15,23,42,.08)}
 @media(prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#111c2f;--text:#e7edf7;--muted:#9aacbf;--border:#2b3b53;--shadow:none}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:820px;margin:auto;padding:18px;padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}.top,.actions,.summary,.row,.historyTop,.syncRow{display:flex;gap:12px;align-items:center;justify-content:space-between}.top{margin-bottom:20px}.top h1{margin:0;font-size:1.7rem}.muted{color:var(--muted)}.small{font-size:.82rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}label{display:block;color:var(--muted);font-size:.86rem}input{width:100%;margin-top:5px;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit}button,.fileButton{border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer;text-align:center}.start{background:var(--green);color:#fff}.stop{background:var(--red);color:#fff}.save{background:var(--blue);color:#fff}.secondary,.del,.fileButton{background:transparent;color:var(--text);border:1px solid var(--border)}button:focus,input:focus,.fileButton:focus-within{outline:3px solid #60a5fa;outline-offset:2px}.note{margin-top:13px}.big{font-size:1.8rem;font-weight:800}.metric{flex:1}.positive{color:#16a34a}.negative{color:#e11d48}.history{display:grid;gap:8px}.row{border:1px solid var(--border);padding:12px;border-radius:11px}.savebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}.msg{min-height:1.2em;margin-bottom:0}.right{display:flex;align-items:center;gap:10px}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px}.fileButton input{display:none}.install{display:none;background:#7c3aed;color:#fff;margin-bottom:14px}.install.show{display:inline-block}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:820px;margin:auto;padding:18px;padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}.top,.actions,.summary,.row,.historyTop,.topRight{display:flex;gap:12px;align-items:center;justify-content:space-between}.top{margin-bottom:20px}.top h1{margin:0;font-size:1.7rem}.muted{color:var(--muted)}.small{font-size:.82rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}label{display:block;color:var(--muted);font-size:.86rem}input{width:100%;margin-top:5px;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit}button,.fileButton{border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer;text-align:center}.start{background:var(--green);color:#fff}.stop{background:var(--red);color:#fff}.save{background:var(--blue);color:#fff}.secondary,.del,.fileButton,.syncBtn{background:transparent;color:var(--text);border:1px solid var(--border)}.syncBtn{padding:8px 12px;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}button:focus,input:focus,.fileButton:focus-within{outline:3px solid #60a5fa;outline-offset:2px}.note{margin-top:13px}.big{font-size:1.8rem;font-weight:800}.metric{flex:1}.positive{color:#16a34a}.negative{color:#e11d48}.history{display:grid;gap:8px}.row{border:1px solid var(--border);padding:12px;border-radius:11px}.savebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}.msg{min-height:1.2em;margin-bottom:0}.right{display:flex;align-items:center;gap:10px}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px}.fileButton input{display:none}.install{display:none;background:#7c3aed;color:#fff;margin-bottom:14px}.install.show{display:inline-block}
 details summary{cursor:pointer;font-weight:700;list-style:none;display:flex;align-items:center;justify-content:space-between}
 details summary::-webkit-details-marker{display:none}
 .badge{font-size:.75rem;padding:4px 9px;border-radius:99px;font-weight:600;border:1px solid var(--border)}
 .badge.ok{background:rgba(22,163,74,.12);color:#16a34a;border-color:rgba(22,163,74,.3)}
+.badge.pending{background:rgba(217,119,6,.12);color:var(--amber);border-color:rgba(217,119,6,.3)}
 .syncControls{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
-@media(max-width:640px){.grid{grid-template-columns:1fr 1fr}.summary{display:grid;grid-template-columns:1fr 1fr}.metric:last-child{grid-column:1/-1}.row,.historyTop,.syncRow{align-items:flex-start;flex-direction:column}.right,.historyTop .actions,.syncRow .actions{width:100%;justify-content:space-between;flex-wrap:wrap}.top h1{font-size:1.45rem}}
+@media(max-width:640px){.grid{grid-template-columns:1fr 1fr}.summary{display:grid;grid-template-columns:1fr 1fr}.metric:last-child{grid-column:1/-1}.row,.historyTop{align-items:flex-start;flex-direction:column}.right,.historyTop .actions{width:100%;justify-content:space-between;flex-wrap:wrap}.top h1{font-size:1.45rem}}
 </style>
 </head>
 <body>
@@ -26,9 +27,12 @@ details summary::-webkit-details-marker{display:none}
 <header class="top">
   <div>
     <h1>Min fleksitid</h1>
-    <div class="muted small">Personlig tidslogg · lokal lagring + Google Sheet-synk</div>
+    <div class="muted small">Personlig tidslogg · automatisk Google Sheet-synk</div>
   </div>
-  <strong id="clock"></strong>
+  <div class="topRight">
+    <button class="syncBtn" id="syncNow" type="button" title="Synkroniser med Google Sheet nå">↻ Synk</button>
+    <strong id="clock"></strong>
+  </div>
 </header>
 
 <button class="install" id="install" type="button">Installer app</button>
@@ -62,7 +66,7 @@ details summary::-webkit-details-marker{display:none}
 <section class="card">
   <details id="syncDetails">
     <summary>
-      <span>Google Sheet-kobling</span>
+      <span>Google Sheet-innstillinger</span>
       <span id="syncBadge" class="badge">Ikke koblet</span>
     </summary>
     <div class="syncControls">
@@ -70,12 +74,10 @@ details summary::-webkit-details-marker{display:none}
         <input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec">
       </label>
       <div class="actions" style="margin-top:12px;justify-content:flex-start;flex-wrap:wrap">
-        <button class="save" id="saveUrl" type="button">Lagre URL</button>
-        <button class="secondary" id="pullSheet" type="button">Hent fra Sheet</button>
-        <button class="secondary" id="pushAllSheet" type="button">Send alle lokale dager til Sheet</button>
+        <button class="save" id="saveUrl" type="button">Lagre og synk</button>
       </div>
       <div class="muted small" style="margin-top:10px">
-        URL-en lagres lokalt på denne enheten. Ved lagring eller sletting av en dag synkroniseres endringen automatisk i bakgrunnen.
+        Appen synkroniserer automatisk ved oppstart, ved lagring/sletting, når du åpner fanen igjen, og så snart mobilen/PC-en får nettverkstilkobling.
       </div>
     </div>
   </details>
@@ -95,13 +97,19 @@ details summary::-webkit-details-marker{display:none}
   <div id="history" class="history" style="margin-top:12px"></div>
 </section>
 
-<div class="footer">PWA v3 · localStorage + Google Sheet Web App · fungerer offline</div>
+<div class="footer">PWA v4 · Offline-kø + automatisk Google Sheet-synk</div>
 </main>
 <script>
 (()=>{'use strict';
-const KEY='min-fleksitid-v2',URL_KEY='min-fleksitid-sheet-url',DAY=450,$=id=>document.getElementById(id);
-let rows=[];
+const KEY='min-fleksitid-v2',
+      URL_KEY='min-fleksitid-sheet-url',
+      QUEUE_KEY='min-fleksitid-sync-queue',
+      DAY=450,
+      $=id=>document.getElementById(id);
+
+let rows=[],queue=[],syncing=false;
 try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');rows=Array.isArray(x)?x:[]}catch{rows=[]}
+try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]');queue=Array.isArray(q)?q:[]}catch{queue=[]}
 
 const pad=n=>String(n).padStart(2,'0');
 const today=()=>{const d=new Date(Date.now()-new Date().getTimezoneOffset()*60000);return d.toISOString().slice(0,10)};
@@ -111,69 +119,111 @@ const dur=m=>Math.floor(Math.abs(m)/60)+':'+pad(Math.abs(m)%60);
 const signed=m=>(m<0?'-':'+')+dur(m);
 const getApiUrl=()=>(localStorage.getItem(URL_KEY)||'').trim();
 
+function saveQueue(){
+  localStorage.setItem(QUEUE_KEY,JSON.stringify(queue));
+  updateSyncBadge();
+}
+
+function enqueue(item){
+  // Fjern eldre ventende endring på samme dato slik at bare siste handling gjelder
+  queue=queue.filter(x=>x.date!==item.date);
+  queue.push(item);
+  saveQueue();
+}
+
 function updateSyncBadge(){
   const url=getApiUrl();
   $('apiUrl').value=url;
   const b=$('syncBadge');
-  if(url){
-    b.textContent='Koblet';
-    b.className='badge ok';
-  }else{
+  if(!url){
     b.textContent='Ikke koblet';
     b.className='badge';
+  }else if(queue.length>0){
+    b.textContent=queue.length+' venter på nett';
+    b.className='badge pending';
+  }else{
+    b.textContent='Synkronisert';
+    b.className='badge ok';
   }
 }
 
-async function syncToSheet(payload){
-  const url=getApiUrl();
-  if(!url)return false;
-  try{
-    $('msg').textContent='Synkroniserer med Google Sheet...';
-    const res=await fetch(url,{
-      method:'POST',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify(payload)
-    });
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    $('msg').textContent=payload.action==='delete'?'Slettet lokalt og i Google Sheet.':'Lagret lokalt og i Google Sheet.';
-    return true;
-  }catch(err){
-    console.warn('Synkroniseringsfeil:',err);
-    $('msg').textContent='Lagret lokalt (kunne ikke nå Google Sheet akkurat nå).';
-    return false;
-  }
+function cleanRow(r){
+  if(!r||!/^\d{4}-\d{2}-\d{2}$/.test(r.date||'')||!Number.isFinite(Number(r.minutes)))return null;
+  return {
+    date:r.date,
+    from:String(r.from||''),
+    to:String(r.to||''),
+    break:Math.min(300,Math.max(0,Number(r.break)||0)),
+    note:String(r.note||'').slice(0,160),
+    minutes:Number(r.minutes)
+  };
 }
 
-async function loadFromSheet(silent=false){
+// Hovedfunksjon for automatisk og manuell synkronisering (kø -> opp, deretter Sheet <-> lokal fletting)
+async function syncAll(silent=false){
   const url=getApiUrl();
   if(!url){
-    if(!silent)$('msg').textContent='Legg inn og lagre en gyldig Web App-URL først.';
+    if(!silent){
+      $('syncDetails').open=true;
+      $('msg').textContent='Legg inn Web App-URL under Google Sheet-innstillinger først.';
+    }
     return;
   }
+  if(syncing||!navigator.onLine){
+    if(!navigator.onLine&&!silent)$('msg').textContent='Ingen nettforbindelse. Endringer ligger i kø og synkes automatisk.';
+    updateSyncBadge();
+    return;
+  }
+  syncing=true;
+  $('syncNow').textContent='↻ Synker...';
+  if(!silent)$('msg').textContent='Synkroniserer med Google Sheet...';
+
   try{
-    if(!silent)$('msg').textContent='Henter rader fra Google Sheet...';
+    // 1. Tøm offline-køen (ventende lagringer og slettinger) til Google Sheet
+    while(queue.length>0){
+      const item=queue[0];
+      const res=await fetch(url,{
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(item)
+      });
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      queue.shift();
+      saveQueue();
+    }
+
+    // 2. Hent alle rader fra Google Sheet
     const res=await fetch(url);
     if(!res.ok)throw new Error('HTTP '+res.status);
-    const remoteRows=await res.json();
-    if(Array.isArray(remoteRows)){
-      const clean=remoteRows.filter(r=>r&&/^\d{4}-\d{2}-\d{2}$/.test(r.date||'')&&Number.isFinite(Number(r.minutes))).map(r=>({
-        date:r.date,
-        from:String(r.from||''),
-        to:String(r.to||''),
-        break:Math.min(300,Math.max(0,Number(r.break)||0)),
-        note:String(r.note||'').slice(0,160),
-        minutes:Number(r.minutes)
-      }));
-      if(clean.length||!silent){
-        rows=clean;
-        persist();
-        status();
+    const remoteRaw=await res.json();
+    if(Array.isArray(remoteRaw)){
+      const remoteRows=remoteRaw.map(cleanRow).filter(Boolean);
+      const remoteMap=new Map(remoteRows.map(r=>[r.date,r]));
+
+      // 3. Hvis vi har lokale dager som aldri har vært sendt til Sheet ennå, send dem opp nå
+      const unsyncedLocal=rows.filter(r=>!remoteMap.has(r.date));
+      for(const localRow of unsyncedLocal){
+        const postRes=await fetch(url,{
+          method:'POST',
+          headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body:JSON.stringify({...localRow,action:'save'})
+        });
+        if(postRes.ok)remoteMap.set(localRow.date,localRow);
       }
-      if(!silent)$('msg').textContent='Hentet '+clean.length+' '+(clean.length===1?'dag':'dager')+' fra Google Sheet.';
+
+      rows=Array.from(remoteMap.values());
+      persist();
+      status();
     }
+    updateSyncBadge();
+    if(!silent)$('msg').textContent='Synkronisert med Google Sheet ('+new Date().toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'})+').';
   }catch(err){
-    console.warn('Kunne ikke hente fra Google Sheet:',err);
-    if(!silent)$('msg').textContent='Kunne ikke hente fra Google Sheet. Kontroller URL og tilgang.';
+    console.warn('Synkronisering utsatt:',err);
+    updateSyncBadge();
+    if(!silent)$('msg').textContent='Lagret lokalt – synkroniserer automatisk så snart Google Sheet kan nås.';
+  }finally{
+    syncing=false;
+    $('syncNow').textContent='↻ Synk';
   }
 }
 
@@ -228,7 +278,8 @@ function render(){
         rows=rows.filter(x=>x.date!==r.date);
         persist();
         status();
-        syncToSheet({date:r.date,action:'delete'});
+        enqueue({date:r.date,action:'delete'});
+        syncAll(false);
       }
     };
     rr.append(s,del);
@@ -275,8 +326,8 @@ $('save').onclick=()=>{
   i>=0?rows[i]=r:rows.push(r);
   persist();
   status();
-  $('msg').textContent='Dagen er lagret lokalt.';
-  syncToSheet({...r,action:'save'});
+  enqueue({...r,action:'save'});
+  syncAll(false);
 };
 
 $('saveUrl').onclick=()=>{
@@ -289,31 +340,11 @@ $('saveUrl').onclick=()=>{
   }
   localStorage.setItem(URL_KEY,val);
   updateSyncBadge();
-  $('msg').textContent='Web App-URL er lagret.';
-  loadFromSheet(false);
+  $('syncDetails').open=false;
+  syncAll(false);
 };
 
-$('pullSheet').onclick=()=>loadFromSheet(false);
-
-$('pushAllSheet').onclick=async()=>{
-  const url=getApiUrl();
-  if(!url){
-    $('msg').textContent='Lagre Web App-URL først.';
-    return;
-  }
-  if(!rows.length){
-    $('msg').textContent='Ingen lokale dager å sende.';
-    return;
-  }
-  const sorted=[...rows].sort((a,b)=>a.date.localeCompare(b.date));
-  let okCount=0;
-  for(let i=0;i<sorted.length;i++){
-    $('msg').textContent='Sender dag '+(i+1)+' av '+sorted.length+'...';
-    const ok=await syncToSheet({...sorted[i],action:'save'});
-    if(ok)okCount++;
-  }
-  $('msg').textContent='Synkroniserte '+okCount+' av '+sorted.length+' dager til Google Sheet.';
-};
+$('syncNow').onclick=()=>syncAll(false);
 
 $('export').onclick=()=>{
   const b=new Blob([JSON.stringify(rows,null,2)],{type:'application/json'}),
@@ -333,17 +364,13 @@ $('import').onchange=e=>{
     try{
       const x=JSON.parse(reader.result);
       if(!Array.isArray(x))throw new Error();
-      rows=x.filter(r=>r&&/^\d{4}-\d{2}-\d{2}$/.test(r.date||'')&&Number.isFinite(Number(r.minutes))).map(r=>({
-        date:r.date,
-        from:String(r.from||''),
-        to:String(r.to||''),
-        break:Math.min(300,Math.max(0,Number(r.break)||0)),
-        note:String(r.note||'').slice(0,160),
-        minutes:Number(r.minutes)
-      }));
+      const imported=x.map(cleanRow).filter(Boolean);
+      rows=imported;
+      imported.forEach(r=>enqueue({...r,action:'save'}));
       persist();
       status();
-      $('msg').textContent='Backup importert.';
+      $('msg').textContent='Backup importert – synkroniserer til Google Sheet...';
+      syncAll(false);
     }catch{
       $('msg').textContent='Kunne ikke lese backupfilen.';
     }finally{
@@ -352,6 +379,12 @@ $('import').onchange=e=>{
   };
   reader.readAsText(f);
 };
+
+// Automatiske triggere når nettverk kommer tilbake eller appen hentes frem igjen
+window.addEventListener('online',()=>syncAll(false));
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible')syncAll(true);
+});
 
 function tick(){
   $('clock').textContent=new Date().toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'});
@@ -363,7 +396,7 @@ if(!getApiUrl())$('syncDetails').open=true;
 render();
 status();
 preview();
-loadFromSheet(true);
+syncAll(true);
 
 let installPrompt=null;
 window.addEventListener('beforeinstallprompt',e=>{
