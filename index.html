@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0f172a">
-  <meta name="description" content="En enkel personlig fleksitidslogg med automatisk toveis Google Sheet-synkronisering v4.">
+  <meta name="description" content="En enkel personlig fleksitidslogg med automatisk toveis Google Sheet-synkronisering v5.">
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="./icon-192.png">
@@ -12,7 +12,7 @@
 <style>
 :root{color-scheme:light dark;--bg:#f4f7fb;--card:#fff;--text:#162033;--muted:#64748b;--border:#dbe3ee;--blue:#2563eb;--green:#15803d;--red:#dc2626;--amber:#d97706;--shadow:0 8px 24px rgba(15,23,42,.08)}
 @media(prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#111c2f;--text:#e7edf7;--muted:#9aacbf;--border:#2b3b53;--shadow:none}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:820px;margin:auto;padding:18px;padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}.top,.actions,.summary,.row,.historyTop,.topRight{display:flex;gap:12px;align-items:center;justify-content:space-between}.top{margin-bottom:20px}.top h1{margin:0;font-size:1.7rem}.muted{color:var(--muted)}.small{font-size:.82rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}label{display:block;color:var(--muted);font-size:.86rem}input{width:100%;margin-top:5px;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit}button,.fileButton{border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer;text-align:center}.start{background:var(--green);color:#fff}.stop{background:var(--red);color:#fff}.save{background:var(--blue);color:#fff}.secondary,.del,.fileButton,.syncBtn{background:transparent;color:var(--text);border:1px solid var(--border)}.syncBtn{padding:8px 12px;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}button:focus,input:focus,.fileButton:focus-within{outline:3px solid #60a5fa;outline-offset:2px}.note{margin-top:13px}.big{font-size:1.8rem;font-weight:800}.metric{flex:1}.positive{color:#16a34a}.negative{color:#e11d48}.history{display:grid;gap:8px}.row{border:1px solid var(--border);padding:12px;border-radius:11px}.savebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}.msg{min-height:1.2em;margin-bottom:0}.right{display:flex;align-items:center;gap:10px}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px}.fileButton input{display:none}.install{display:none;background:#7c3aed;color:#fff;margin-bottom:14px}.install.show{display:inline-block}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:820px;margin:auto;padding:18px;padding-top:max(18px,env(safe-area-inset-top));padding-bottom:max(18px,env(safe-area-inset-bottom))}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}.top,.actions,.summary,.row,.historyTop,.topRight{display:flex;gap:12px;align-items:center;justify-content:space-between}.top{margin-bottom:20px}.top h1{margin:0;font-size:1.7rem}.muted{color:var(--muted)}.small{font-size:.82rem}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}label{display:block;color:var(--muted);font-size:.86rem}input{width:100%;margin-top:5px;padding:11px;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--text);font:inherit}button,.fileButton{border:0;border-radius:10px;padding:12px 15px;font-weight:700;cursor:pointer;text-align:center}.start{background:var(--green);color:#fff}.stop{background:var(--red);color:#fff}.save{background:var(--blue);color:#fff}.secondary,.del,.fileButton,.syncBtn,.chipBtn{background:transparent;color:var(--text);border:1px solid var(--border)}.syncBtn{padding:8px 12px;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}.chipBtn{padding:6px 10px;font-size:.8rem;border-radius:8px;font-weight:600}.chipBtn:hover,.row.clickable:hover{border-color:var(--blue)}button:focus,input:focus,.fileButton:focus-within{outline:3px solid #60a5fa;outline-offset:2px}.note{margin-top:13px}.big{font-size:1.8rem;font-weight:800}.metric{flex:1}.positive{color:#16a34a}.negative{color:#e11d48}.history{display:grid;gap:8px}.row{border:1px solid var(--border);padding:12px;border-radius:11px;transition:border-color .15s}.row.clickable{cursor:pointer}.row.activeDay{border-color:var(--blue);background:rgba(37,99,235,.04)}.savebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}.quickAdjust{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}.msg{min-height:1.2em;margin-bottom:0}.right{display:flex;align-items:center;gap:10px}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px}.fileButton input{display:none}.install{display:none;background:#7c3aed;color:#fff;margin-bottom:14px}.install.show{display:inline-block}
 details summary{cursor:pointer;font-weight:700;list-style:none;display:flex;align-items:center;justify-content:space-between}
 details summary::-webkit-details-marker{display:none}
 .badge{font-size:.75rem;padding:4px 9px;border-radius:99px;font-weight:600;border:1px solid var(--border)}
@@ -48,6 +48,13 @@ details summary::-webkit-details-marker{display:none}
     <label>Til<input id="to" type="time"></label>
     <label>Pause (min)<input id="break" type="number" min="0" max="300" value="30"></label>
     <label>Dato<input id="date" type="date"></label>
+  </div>
+  <div class="quickAdjust">
+    <span class="muted small">Utvid sluttid (kveldsøkt hjemme):</span>
+    <button class="chipBtn" type="button" data-add="30">+30m</button>
+    <button class="chipBtn" type="button" data-add="60">+1t</button>
+    <button class="chipBtn" type="button" data-add="120">+2t</button>
+    <button class="chipBtn" type="button" data-add="-30">-30m</button>
   </div>
   <label class="note">Notat<input id="note" maxlength="160" placeholder="F.eks. hjemmekontor, kurs, kveldsmøte"></label>
   <div class="savebar">
@@ -87,7 +94,7 @@ details summary::-webkit-details-marker{display:none}
   <div class="historyTop">
     <div>
       <strong>Historikk</strong>
-      <div class="muted small">Ny lagring samme dato erstatter eksisterende registrering.</div>
+      <div class="muted small">Klikk på en dag i listen (eller velg dato øverst) for å se og endre stemplingen.</div>
     </div>
     <div class="actions">
       <button class="secondary" id="export" type="button">Eksporter JSON</button>
@@ -97,7 +104,7 @@ details summary::-webkit-details-marker{display:none}
   <div id="history" class="history" style="margin-top:12px"></div>
 </section>
 
-<div class="footer">PWA v4 · Offline-kø + automatisk Google Sheet-synk</div>
+<div class="footer">PWA v5 · Offline-kø + automatisk Google Sheet-synk</div>
 </main>
 <script>
 (()=>{'use strict';
@@ -114,7 +121,16 @@ try{const q=JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]');queue=Array.isArra
 const pad=n=>String(n).padStart(2,'0');
 const today=()=>{const d=new Date(Date.now()-new Date().getTimezoneOffset()*60000);return d.toISOString().slice(0,10)};
 const now=()=>{const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())};
-const mins=t=>{if(!t)return null;const [h,m]=t.split(':').map(Number);return h*60+m};
+const normTime=t=>{
+  if(!t)return '';
+  const m=String(t).trim().match(/^(\d{1,2}):(\d{2})/);
+  return m?pad(Number(m[1]))+':'+m[2]:'';
+};
+const mins=t=>{const clean=normTime(t);if(!clean)return null;const [h,m]=clean.split(':').map(Number);return h*60+m};
+const toTimeStr=totalMins=>{
+  const clamped=Math.max(0,Math.min(1439,totalMins));
+  return pad(Math.floor(clamped/60))+':'+pad(clamped%60);
+};
 const dur=m=>Math.floor(Math.abs(m)/60)+':'+pad(Math.abs(m)%60);
 const signed=m=>(m<0?'-':'+')+dur(m);
 const getApiUrl=()=>(localStorage.getItem(URL_KEY)||'').trim();
@@ -125,7 +141,6 @@ function saveQueue(){
 }
 
 function enqueue(item){
-  // Fjern eldre ventende endring på samme dato slik at bare siste handling gjelder
   queue=queue.filter(x=>x.date!==item.date);
   queue.push(item);
   saveQueue();
@@ -148,18 +163,45 @@ function updateSyncBadge(){
 }
 
 function cleanRow(r){
-  if(!r||!/^\d{4}-\d{2}-\d{2}$/.test(r.date||'')||!Number.isFinite(Number(r.minutes)))return null;
+  if(!r||!/^\d{4}-\d{2}-\d{2}$/.test(r.date||''))return null;
+  const from=normTime(r.from),to=normTime(r.to);
+  if(!from||!to)return null;
+  const brk=Math.min(300,Math.max(0,Number(r.break)||0));
+  const a=mins(from),b=mins(to);
+  const calcMins=(a!==null&&b!==null&&b>=a)?Math.max(0,b-a-brk):Number(r.minutes);
+  if(!Number.isFinite(calcMins)||calcMins<=0)return null;
   return {
     date:r.date,
-    from:String(r.from||''),
-    to:String(r.to||''),
-    break:Math.min(300,Math.max(0,Number(r.break)||0)),
+    from,
+    to,
+    break:brk,
     note:String(r.note||'').slice(0,160),
-    minutes:Number(r.minutes)
+    minutes:calcMins
   };
 }
 
-// Hovedfunksjon for automatisk og manuell synkronisering (kø -> opp, deretter Sheet <-> lokal fletting)
+function loadDateIntoForm(dateStr){
+  if(!dateStr)return;
+  $('date').value=dateStr;
+  const existing=rows.find(x=>x.date===dateStr);
+  if(existing){
+    $('from').value=normTime(existing.from);
+    $('to').value=normTime(existing.to);
+    $('break').value=existing.break;
+    $('note').value=existing.note||'';
+    $('save').textContent='Oppdater dagen';
+  }else{
+    $('from').value='';
+    $('to').value='';
+    $('break').value=30;
+    $('note').value='';
+    $('save').textContent='Lagre dagen';
+  }
+  status();
+  preview();
+  render();
+}
+
 async function syncAll(silent=false){
   const url=getApiUrl();
   if(!url){
@@ -179,7 +221,6 @@ async function syncAll(silent=false){
   if(!silent)$('msg').textContent='Synkroniserer med Google Sheet...';
 
   try{
-    // 1. Tøm offline-køen (ventende lagringer og slettinger) til Google Sheet
     while(queue.length>0){
       const item=queue[0];
       const res=await fetch(url,{
@@ -192,15 +233,13 @@ async function syncAll(silent=false){
       saveQueue();
     }
 
-    // 2. Hent alle rader fra Google Sheet
-    const res=await fetch(url);
+    const res=await fetch(url+'?t='+Date.now());
     if(!res.ok)throw new Error('HTTP '+res.status);
     const remoteRaw=await res.json();
     if(Array.isArray(remoteRaw)){
       const remoteRows=remoteRaw.map(cleanRow).filter(Boolean);
       const remoteMap=new Map(remoteRows.map(r=>[r.date,r]));
 
-      // 3. Hvis vi har lokale dager som aldri har vært sendt til Sheet ennå, send dem opp nå
       const unsyncedLocal=rows.filter(r=>!remoteMap.has(r.date));
       for(const localRow of unsyncedLocal){
         const postRes=await fetch(url,{
@@ -213,14 +252,14 @@ async function syncAll(silent=false){
 
       rows=Array.from(remoteMap.values());
       persist();
-      status();
+      loadDateIntoForm($('date').value||today());
     }
     updateSyncBadge();
-    if(!silent)$('msg').textContent='Synkronisert med Google Sheet ('+new Date().toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'})+').';
+    if(!silent)$('msg').textContent='Synkronisert med Google Sheet ('+new Date().toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'})+' · '+rows.length+' dager).';
   }catch(err){
     console.warn('Synkronisering utsatt:',err);
     updateSyncBadge();
-    if(!silent)$('msg').textContent='Lagret lokalt – synkroniserer automatisk så snart Google Sheet kan nås.';
+    if(!silent)$('msg').textContent='Kunne ikke nå Google Sheet – sjekk at Apps Script er publisert som Ny versjon.';
   }finally{
     syncing=false;
     $('syncNow').textContent='↻ Synk';
@@ -248,6 +287,7 @@ function render(){
   $('balance').textContent=signed(bal);
   $('balance').className='big '+(bal<0?'negative':'positive');
   $('count').textContent=rows.length+' '+(rows.length===1?'dag':'dager');
+  const selectedDate=$('date').value;
   const h=$('history');
   h.replaceChildren();
   if(!rows.length){
@@ -258,7 +298,7 @@ function render(){
   }
   rows.forEach(r=>{
     const el=document.createElement('div');
-    el.className='row';
+    el.className='row clickable'+(r.date===selectedDate?' activeDay':'');
     const l=document.createElement('div'),t=document.createElement('strong'),d=document.createElement('div');
     t.textContent=r.date;
     d.className='muted small';
@@ -273,14 +313,19 @@ function render(){
     del.type='button';
     del.className='del';
     del.textContent='Slett';
-    del.onclick=()=>{
+    del.onclick=ev=>{
+      ev.stopPropagation();
       if(confirm('Slette '+r.date+'?')){
         rows=rows.filter(x=>x.date!==r.date);
         persist();
-        status();
+        loadDateIntoForm($('date').value);
         enqueue({date:r.date,action:'delete'});
         syncAll(false);
       }
+    };
+    el.onclick=()=>{
+      loadDateIntoForm(r.date);
+      window.scrollTo({top:0,behavior:'smooth'});
     };
     rr.append(s,del);
     el.append(l,rr);
@@ -289,24 +334,43 @@ function render(){
 }
 
 function status(){
-  const r=rows.find(x=>x.date===today());
-  $('status').textContent=r?'I dag: '+r.from+'–'+r.to+' er lagret':'Ikke startet i dag';
+  const sel=$('date').value||today();
+  const r=rows.find(x=>x.date===sel);
+  const isToday=sel===today();
+  if(r){
+    $('status').textContent=(isToday?'I dag (':'Valgt dato (')+sel+'): '+r.from+'–'+r.to+' er registrert ('+dur(r.minutes)+' / '+signed(r.minutes-DAY)+')';
+  }else{
+    $('status').textContent=isToday?'Ikke startet i dag ('+sel+')':'Ingen registrering på '+sel;
+  }
 }
 
 $('date').value=today();
+$('date').onchange=()=>loadDateIntoForm($('date').value);
+
 $('start').onclick=()=>{
-  $('date').value=today();
+  const d=$('date').value||today();
+  $('date').value=d;
   $('from').value=now();
-  $('status').textContent='Startet '+$('from').value;
+  $('status').textContent='Startet '+$('from').value+' ('+d+')';
   preview();
 };
 $('stop').onclick=()=>{
-  $('date').value=today();
+  const d=$('date').value||today();
+  $('date').value=d;
   $('to').value=now();
-  $('status').textContent='Avsluttet '+$('to').value;
+  $('status').textContent='Avsluttet '+$('to').value+' ('+d+')';
   preview();
 };
 ['from','to','break'].forEach(x=>$(x).oninput=preview);
+
+document.querySelectorAll('[data-add]').forEach(btn=>{
+  btn.onclick=()=>{
+    const delta=Number(btn.dataset.add)||0;
+    const base=mins($('to').value)??mins('16:00');
+    $('to').value=toTimeStr(base+delta);
+    preview();
+  };
+});
 
 $('save').onclick=()=>{
   const m=calc(),date=$('date').value;
@@ -316,8 +380,8 @@ $('save').onclick=()=>{
   }
   const r={
     date,
-    from:$('from').value,
-    to:$('to').value,
+    from:normTime($('from').value),
+    to:normTime($('to').value),
     break:Math.min(300,Math.max(0,+$('break').value||0)),
     note:$('note').value.trim(),
     minutes:m
@@ -325,7 +389,7 @@ $('save').onclick=()=>{
   const i=rows.findIndex(x=>x.date===date);
   i>=0?rows[i]=r:rows.push(r);
   persist();
-  status();
+  loadDateIntoForm(date);
   enqueue({...r,action:'save'});
   syncAll(false);
 };
@@ -368,7 +432,7 @@ $('import').onchange=e=>{
       rows=imported;
       imported.forEach(r=>enqueue({...r,action:'save'}));
       persist();
-      status();
+      loadDateIntoForm($('date').value);
       $('msg').textContent='Backup importert – synkroniserer til Google Sheet...';
       syncAll(false);
     }catch{
@@ -380,7 +444,6 @@ $('import').onchange=e=>{
   reader.readAsText(f);
 };
 
-// Automatiske triggere når nettverk kommer tilbake eller appen hentes frem igjen
 window.addEventListener('online',()=>syncAll(false));
 document.addEventListener('visibilitychange',()=>{
   if(document.visibilityState==='visible')syncAll(true);
@@ -393,9 +456,7 @@ tick();
 setInterval(tick,30000);
 updateSyncBadge();
 if(!getApiUrl())$('syncDetails').open=true;
-render();
-status();
-preview();
+loadDateIntoForm(today());
 syncAll(true);
 
 let installPrompt=null;
